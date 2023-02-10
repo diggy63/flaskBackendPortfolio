@@ -9,7 +9,7 @@ def home():
     return jsonify({"message": "Hello from Flask!"})
 
 @app.route("/api")
-def home():
+def api():
     return jsonify({"message": "Found Api"})
 
 if __name__ == "__main__":
