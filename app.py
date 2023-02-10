@@ -8,5 +8,9 @@ CORS(app)
 def home():
     return jsonify({"message": "Hello from Flask!"})
 
+@app.route("/api")
+def home():
+    return jsonify({"message": "Found Api"})
+
 if __name__ == "__main__":
     app.run()
