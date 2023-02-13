@@ -61,6 +61,7 @@ def getOAuth():
     except HttpError as error:
         # TODO(developer) - Handle errors from gmail API.
         print(f'An error occurred: {error}')
+    return "we have been verfied"
 
 def readEmails():
         # Replace "token.json" with the path to the JSON file that contains your OAuth 2.0 credentials
