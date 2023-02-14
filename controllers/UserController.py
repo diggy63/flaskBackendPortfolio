@@ -3,7 +3,7 @@ from flask import request
 
 from extensions import db
 
-from models.Test import Test
+from models.User import User
 
 def getUser():
     result = []
