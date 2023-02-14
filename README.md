@@ -1,10 +1,10 @@
 # flaskBackendPortfolio
-
+## Quickstart Guide
 .env will need
 <ul>
   <li>JWT_SECRET_KEY</li>
-SECRET_KEY
-DB_HOST
+  <li>SECRET_KEY</li>
+  <li>DB_HOST</li>
 </ul>
 # Gmail API
 will need a token.json uploaded via ssh or you need to go to the OAuth where a locally provided credentials.json
