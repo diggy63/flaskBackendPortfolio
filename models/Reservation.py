@@ -6,6 +6,7 @@ class Reservation(db.Model):
     number = db.Column(db.String(1000))
     dateAndTime = db.Column(db.String(1000))
     guests = db.Column(db.String(1000))
+    time = db.Column(db.String(1000))
     email = db.Column(db.String(1000))
     body = db.Column(db.String(1000))
 
@@ -18,5 +19,6 @@ class Reservation(db.Model):
             "dateAndTime": self.dateAndTime,
             "guests": self.guests,
             "body":self.body,
-            "email": self.email
+            "email": self.email,
+            "time": self.time
         }

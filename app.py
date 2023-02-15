@@ -6,6 +6,8 @@ from flask_migrate import Migrate
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 
 
+
+
 # retreaving db from exntions
 from extensions import db
 
@@ -30,7 +32,8 @@ app.register_blueprint(user_bp,url_prefix='/api/users')
 app.register_blueprint(reservations_bp,url_prefix='/api/reservations')
 app.register_blueprint(emailReader_bp,url_prefix='/api/emailReader')
 
-# simple code to make make sure the data base is connected
+# simple code to make make sure the data base is connected runs on start up so you can check local
+# and your server db
 with app.app_context():
     try:
         connection = db.engine.connect()

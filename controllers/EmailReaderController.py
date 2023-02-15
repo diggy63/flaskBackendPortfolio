@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask import request, jsonify
 from flask import request
 
@@ -63,6 +64,8 @@ def getOAuth():
         print(f'An error occurred: {error}')
     return "we have been verfied"
 
+
+# @jwt_required()
 def readEmails():
         # Replace "token.json" with the path to the JSON file that contains your OAuth 2.0 credentials
     creds = Credentials.from_authorized_user_file("token.json")
@@ -106,18 +109,23 @@ def readEmails():
 
     for email in email_data:
         info = extract_info(email)
+        print(info)
+        print("<>")
         createReservationFromEmail(info)
 
     print("Emails with the subject prefix '" + subject_prefix + "' have been saved to email_data.csv.")
-    return "emails have been read"
+
+    return {"msg":"scan succesfull"}
 
 
 
+## this function stakes the raw email from GmaiAPI and extracts the info into something our database can use
 def extract_info(strings):
     name = ""
     email = ""
     phone = ""
-    date_time = ""
+    date = ""
+    time =""
     guests = ""
     message = ""
 
@@ -130,7 +138,11 @@ def extract_info(strings):
             prephone = re.split('Number:', string)[1]
             phone = re.split("\r\n", prephone)[0]
         if "Date and Time" in string:
-            date_time = string.split("Date and Time\r\n")[1].split("\r\nGuests")[0]
+            date_pre = string.split("Date and Time\r\n")[1].split("\r\nGuests")[0]
+            # date = dateFormat(date_pre)
+            date = date_pre
+        if "TimeActual" in string:
+            time = string.split("\r\nTimeActual\r\n")[1].split('\r\n')[0]
         if "Guests" in string:
             guests = string.split("Guests\r\n")[1].split("\r\n")[0]
         if "Message Body" in string:
@@ -140,10 +152,13 @@ def extract_info(strings):
         "name": name,
         "email": email,
         "phone": phone,
-        "date_time": date_time,
+        "date_time": date,
+        "time": time,
         "guests": guests,
         "message": message
     }
+
+#creates a new reservation in our database if it verifies that it is a new database
 def createReservationFromEmail(info):
     newReservation = Reservation(
         name=info["name"],
@@ -151,7 +166,8 @@ def createReservationFromEmail(info):
         number=info["phone"],
         dateAndTime=info["date_time"],
         guests=info["guests"],
-        body=info["message"])
+        body=info["message"],
+        time=info["time"])
     # checks to see if this objects exsist in the table
     exists = db.session.query(db.exists().where(Reservation.name == info["name"])).scalar()
 
@@ -161,3 +177,12 @@ def createReservationFromEmail(info):
         db.session.add(newReservation)
         db.session.commit()
         print("not found")
+
+#formats the date so that it matchs all the other entries and we can sort
+# def dateFormat(data):
+#     print(data + "<-----data")
+    
+#     return data
+
+
+
