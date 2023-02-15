@@ -138,7 +138,7 @@ def extract_info(strings):
             prephone = re.split('Number:', string)[1]
             phone = re.split("\r\n", prephone)[0]
         if "Date and Time" in string:
-            date_pre = string.split("Date and Time\r\n")[1].split("\r\nGuests")[0]
+            date_pre = string.split("Date and Time\r\n")[1].split("\r\n")[0]
             # date = dateFormat(date_pre)
             date = date_pre
         if "TimeActual" in string:
@@ -152,7 +152,7 @@ def extract_info(strings):
         "name": name,
         "email": email,
         "phone": phone,
-        "date_time": date,
+        "date": date,
         "time": time,
         "guests": guests,
         "message": message
@@ -164,7 +164,7 @@ def createReservationFromEmail(info):
         name=info["name"],
         email=info['email'],
         number=info["phone"],
-        dateAndTime=info["date_time"],
+        date=info["date"],
         guests=info["guests"],
         body=info["message"],
         time=info["time"])

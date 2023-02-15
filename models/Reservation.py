@@ -4,7 +4,7 @@ class Reservation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
     number = db.Column(db.String(1000))
-    dateAndTime = db.Column(db.String(1000))
+    date = db.Column(db.String(1000))
     guests = db.Column(db.String(1000))
     time = db.Column(db.String(1000))
     email = db.Column(db.String(1000))
@@ -16,7 +16,7 @@ class Reservation(db.Model):
             'id': self.id,
             'name': self.name,
             "number": self.number,
-            "dateAndTime": self.dateAndTime,
+            "date": self.date,
             "guests": self.guests,
             "body":self.body,
             "email": self.email,
