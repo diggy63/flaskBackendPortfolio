@@ -28,7 +28,7 @@ from routes.reservations_bp import reservations_bp
 from routes.emailReader_bp import emailReader_bp
 # registering routes using blueprint
 app.register_blueprint(auth_bp,url_prefix='/api/auth')
-app.register_blueprint(user_bp,url_prefix='/api/users')
+app.register_blueprint(user_bp,url_prefix='/api/user')
 app.register_blueprint(reservations_bp,url_prefix='/api/reservations')
 app.register_blueprint(emailReader_bp,url_prefix='/api/emailReader')
 

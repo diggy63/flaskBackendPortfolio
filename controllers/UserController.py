@@ -1,22 +1,17 @@
 from flask import request, jsonify
 from flask import request
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from extensions import db
 
 from models.User import User
 
+@jwt_required()
 def getUser():
-    result = []
-    newT = Test.query.all()
-    for test in newT:
-        result.append(test.serialize())
+    print("in get")
+    current_user = get_jwt_identity()
+    user = User.query.get(current_user)
+    user = user.serialize()
+    print(user)
+    return jsonify(user)
 
-    return result
-
-def createUser():
-    newName = request.json['name']
-    print(newName)
-    newT = Test(name=newName)
-    db.session.add(newT)
-    db.session.commit()
-    return "creating"

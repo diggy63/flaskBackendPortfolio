@@ -65,7 +65,7 @@ def getOAuth():
     return "we have been verfied"
 
 
-# @jwt_required()
+@jwt_required()
 def readEmails():
         # Replace "token.json" with the path to the JSON file that contains your OAuth 2.0 credentials
     creds = Credentials.from_authorized_user_file("token.json")

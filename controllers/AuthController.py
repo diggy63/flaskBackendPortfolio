@@ -7,12 +7,14 @@ from models.User import User
 
 
 def signup():
-    # email = request.json['email']
-    # name = request.json['name']
-    # password = request.json['password']
-    email = "dk@gmail.com"
-    name = "Daniel"
-    password = "Husky63!!"
+    print("in sign up")
+    print(request.json)
+    email = request.json['email']
+    name = request.json['name']
+    password = request.json['password']
+    # email = "dk@gmail.com"
+    # name = "Daniel"
+    # password = "Husky63!!"
     
     user = User.query.filter_by(email=email).first()
     
